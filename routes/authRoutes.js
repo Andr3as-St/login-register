@@ -1,11 +1,20 @@
 import express from "express";
-const router = express.Router();
-
-import { register, login, updateUSer } from "../controllers/authController.js";
+import {
+  register,
+  login,
+  getCurrentUser,
+  updateUser,
+} from "../controllers/authController.js";
 import authenticateUser from "../middleware/auth.js";
 
-router.route("/register").post(register);
-router.route("/login").post(login);
-router.route("/updateUser").patch(authenticateUser, updateUSer);
+const router = express.Router();
+
+router.post("/register", register);
+router.post("/login", login);
+router.get("/me", authenticateUser, getCurrentUser);
+router.patch("/me", authenticateUser, updateUser);
+
+// Backwards-compatible route for the original client.
+router.patch("/updateUser", authenticateUser, updateUser);
 
 export default router;
