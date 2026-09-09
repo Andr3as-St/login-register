@@ -14,7 +14,4 @@ router.post("/login", login);
 router.get("/me", authenticateUser, getCurrentUser);
 router.patch("/me", authenticateUser, updateUser);
 
-// Backwards-compatible route for the original client.
-router.patch("/updateUser", authenticateUser, updateUser);
-
 export default router;

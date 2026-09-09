@@ -1,2 +1,11 @@
-/node_modules
+node_modules/
+frontend/node_modules/
 .env
+.env.*
+!.env.example
+!frontend/.env.example
+npm-debug.log*
+.DS_Store
+dist/
+frontend/dist/
+coverage/
