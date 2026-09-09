@@ -15,7 +15,28 @@ const app = express();
 
 if (process.env.NODE_ENV !== "production") app.use(morgan("dev"));
 
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173" }));
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:5173",
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin) return callback(null, true);
+
+      const isAllowedOrigin = allowedOrigins.includes(origin);
+      const isVercelDeployment =
+        /^https:\/\/mern-auth-dashboard(?:-[a-z0-9-]+)?\.vercel\.app$/i.test(origin);
+
+      if (isAllowedOrigin || isVercelDeployment) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+  })
+);
 app.use(express.json({ limit: "10kb" }));
 
 app.get("/", (req, res) => res.json({ msg: "MERN Auth Dashboard API" }));
