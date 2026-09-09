@@ -1,17 +1,25 @@
 {
-  "name": "react-node-app",
+  "name": "mern-auth-dashboard",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Full-stack MERN authentication and user dashboard application with JWT-based protected routes.",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon server --ignore client",
-    "client": "npm start --prefix client",
-    "start": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
+    "dev": "nodemon server.js",
+    "server": "nodemon server.js",
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "mern",
+    "mongodb",
+    "express",
+    "react",
+    "node",
+    "jwt",
+    "authentication"
+  ],
+  "author": "Andreas St",
+  "license": "MIT",
   "devDependencies": {
     "concurrently": "^7.6.0",
     "nodemon": "^2.0.20"
