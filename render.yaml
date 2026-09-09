@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: mern-auth-dashboard-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    branch: main
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/v1/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        value: https://mern-auth-dashboard-andr3as-sts-projects.vercel.app
+      - key: JWT_LIFETIME
+        value: 1d
+      - key: MONGO_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
