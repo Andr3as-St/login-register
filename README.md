@@ -1,88 +1,55 @@
 # MERN Authentication Dashboard
 
-A full-stack authentication project built as part of my MERN Stack portfolio. The application provides secure user registration and login, JWT authentication, protected API routes and profile management.
-
-## Tech Stack
-
-- **MongoDB** with Mongoose
-- **Express.js** REST API
-- **React** frontend
-- **Node.js** runtime
-- **JWT** authentication
-- **bcryptjs** password hashing
+A portfolio-ready full-stack authentication application built with MongoDB, Express, React, Node.js and JWT.
 
 ## Features
 
-- User registration
-- Secure password hashing
-- User login
-- JWT token generation and authentication
-- Protected routes
-- User profile updates
-- MongoDB persistence
+- Register and login
+- Secure bcrypt password hashing
+- JWT-based protected API routes
+- Persistent frontend session
+- Protected React routes
+- User dashboard
+- Profile editing
 - Centralized API error handling
+- CORS configuration
 - Environment-based configuration
+
+## Stack
+
+**Frontend:** React, Vite, React Router, Axios  
+**Backend:** Node.js, Express.js, MongoDB, Mongoose, JWT, bcryptjs
 
 ## API
 
 | Method | Endpoint | Description | Auth |
 | --- | --- | --- | --- |
-| POST | `/api/v1/auth/register` | Register a user | No |
-| POST | `/api/v1/auth/login` | Log in | No |
-| PATCH | `/api/v1/auth/updateUser` | Update user profile | Yes |
+| POST | `/api/v1/auth/register` | Register | No |
+| POST | `/api/v1/auth/login` | Login | No |
+| GET | `/api/v1/auth/me` | Current user | Yes |
+| PATCH | `/api/v1/auth/me` | Update profile | Yes |
+| GET | `/api/v1/health` | Health check | No |
 
-## Getting Started
+## Run locally
 
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/Andr3as-St/login-register.git
-cd login-register
-```
-
-### 2. Install dependencies
-
+Backend:
 ```bash
 npm install
-```
-
-### 3. Configure environment variables
-
-Copy `.env.example` to `.env` and provide your MongoDB connection string and JWT secret.
-
-```bash
 cp .env.example .env
-```
-
-### 4. Start the API
-
-Development:
-
-```bash
 npm run dev
 ```
 
-Production:
-
+Frontend:
 ```bash
-npm start
+cd frontend
+npm install
+cp .env.example .env
+npm run dev
 ```
 
-The API runs on `http://localhost:5000` by default.
+Backend defaults to port `5000`; Vite frontend defaults to `5173`.
 
-## Environment Variables
-
-```env
-MONGO_URL=your_mongodb_connection_string
-JWT_SECRET=your_long_random_secret
-JWT_LIFETIME=1d
-PORT=5000
-NODE_ENV=development
-```
-
-Never commit your real `.env` file or credentials to source control.
-
-## Project Structure
+## Project structure
 
 ```text
 login-register/
@@ -92,24 +59,18 @@ login-register/
 ├── middleware/
 ├── models/
 ├── routes/
+├── frontend/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── context/
+│   │   └── pages/
+│   └── package.json
 ├── .env.example
-├── .gitignore
 ├── package.json
 └── server.js
 ```
 
-## Roadmap
-
-- Modern React authentication UI
-- User dashboard
-- Improved validation
-- Security middleware
-- Automated API tests
-- Deployment and live demo
-
 ## Author
 
-**Andreas St**  
-MERN Stack / Full-Stack JavaScript Developer
-
-GitHub: https://github.com/Andr3as-St
+**Andreas St** — MERN Stack / Full-Stack JavaScript Developer

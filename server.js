@@ -1,36 +1,25 @@
 import express from "express";
-const app = express();
 import dotenv from "dotenv";
-import colors from "colors";
-dotenv.config();
+import "colors";
 import "express-async-errors";
 import morgan from "morgan";
+import cors from "cors";
 
-//db and authenticateUser
 import connectDB from "./db/connect.js";
-
-//routers
 import authRouter from "./routes/authRoutes.js";
-
-//middleware
-
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
-import authenticateUser from "./middleware/auth.js";
 
-if (process.env.NODE_ENV !== "production") {
-  app.use(morgan("dev"));
-}
-app.use(express.json());
+dotenv.config();
+const app = express();
 
-app.get("/", (req, res) => {
-  res.json({ msg: "Welcome!" });
-});
+if (process.env.NODE_ENV !== "production") app.use(morgan("dev"));
 
-app.get("/api/v1", (req, res) => {
-  res.json({ msg: "API" });
-});
+app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173" }));
+app.use(express.json({ limit: "10kb" }));
 
+app.get("/", (req, res) => res.json({ msg: "MERN Auth Dashboard API" }));
+app.get("/api/v1/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/v1/auth", authRouter);
 
 app.use(notFoundMiddleware);
@@ -40,12 +29,14 @@ const port = process.env.PORT || 5000;
 
 const start = async () => {
   try {
+    if (!process.env.MONGO_URL || !process.env.JWT_SECRET) {
+      throw new Error("MONGO_URL and JWT_SECRET environment variables are required");
+    }
     await connectDB(process.env.MONGO_URL);
-    app.listen(port, () => {
-      console.log(`Server is listening on port ${port}...`.yellow.bold);
-    });
+    app.listen(port, () => console.log(`Server is listening on port ${port}...`.yellow.bold));
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    process.exitCode = 1;
   }
 };
 
