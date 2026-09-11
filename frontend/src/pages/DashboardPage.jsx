@@ -10,7 +10,7 @@ export default function DashboardPage() {
       </div>
       <div className="card-grid">
         <article className="metric-card"><span>Account</span><strong>Active</strong><small>Authenticated session</small></article>
-        <article className="metric-card"><span>Role</span><strong>{user?.isAdmin ? "Admin" : "User"}</strong><small>Authorization ready</small></article>
+        <article className="metric-card"><span>Role</span><strong>{user?.isAdmin ? "Admin" "}</strong><small>Authorization ready</small></article>
         <article className="metric-card"><span>Location</span><strong>{user?.location || "Not set"}</strong><small>Editable profile field</small></article>
       </div>
       <article className="panel">
